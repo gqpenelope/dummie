@@ -222,15 +222,3 @@ for etf in etfs:
     fig.add_trace(go.Scatter(x=precios_normalizados.index, y=precios_normalizados[etf], mode='lines', name=etf))
 fig.update_layout(title="Precios Normalizados", xaxis_title="Fecha", yaxis_title="Precio Normalizado")
 st.plotly_chart(fig)
-
-# Información descriptiva de activos
-st.sidebar.header("Descripción de Activos")
-descripciones = {
-    "LQD": "Bonos corporativos denominados en USD con grado de inversión.",
-    "EMB": "Bonos de mercados emergentes denominados en USD.",
-    "ACWI": "Empresas internacionales de mercados desarrollados y emergentes.",
-    "SPY": "Empresas de alta capitalización de Estados Unidos.",
-    "WMT": "Retailer global con enfoque en mercados de Estados Unidos."
-}
-activo_seleccionado = st.sidebar.selectbox("Selecciona un activo:", etfs)
-st.sidebar.write(descripciones[activo_seleccionado])
