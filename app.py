@@ -9,6 +9,20 @@ from datetime import datetime
 st.set_page_config(page_title="Análisis de Portafolios", layout="wide")
 st.title("Análisis y Optimización de Portafolios")
 
+# Definición de ETFs y ventanas de tiempo
+etfs = ['LQD', 'EMB', 'ACWI', 'SPY', 'WMT']
+ventanas = {
+    "2010-2023": ("2010-01-01", "2023-12-31"),
+    "2010-2020": ("2010-01-01", "2020-12-31"),
+    "2021-2023": ("2021-01-01", "2023-12-31")
+}
+
+# Función para descargar datos de Yahoo Finance
+@st.cache
+def obtener_datos(etfs, start_date, end_date):
+    data = yf.download(etfs, start=start_date, end=end_date)['Close']
+    return data
+
 # Descripción detallada de cada ETF
 descripciones_etfs = {
     "LQD": {
@@ -120,19 +134,7 @@ for i, etf in enumerate(descripciones_etfs.keys()):
         st.write(data["costos"])
 
 
-# Definición de ETFs y ventanas de tiempo
-#etfs = ['LQD', 'EMB', 'ACWI', 'SPY', 'WMT']
-ventanas = {
-    "2010-2023": ("2010-01-01", "2023-12-31"),
-    "2010-2020": ("2010-01-01", "2020-12-31"),
-    "2021-2023": ("2021-01-01", "2023-12-31")
-}
 
-# Función para descargar datos de Yahoo Finance
-@st.cache
-def obtener_datos(etfs, start_date, end_date):
-    data = yf.download(etfs, start=start_date, end=end_date)['Close']
-    return data
 
 # Selección de ventana de tiempo
 st.sidebar.header("Configuración de Ventana")
