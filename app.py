@@ -133,17 +133,40 @@ st.sidebar.header("Configuración de Ventana")
 ventana = st.sidebar.selectbox("Selecciona una ventana de tiempo:", list(ventanas.keys()))
 start_date, end_date = ventanas[ventana]
 
-# Descarga de datos
+# Función para descargar datos de Yahoo Finance
+@st.cache_data
+def obtener_datos(etfs, start_date, end_date):
+    try:
+        # Descargar datos
+        data = yf.download(etfs, start=start_date, end=end_date)['Close']
+        if data.empty:
+            st.error(f"No se encontraron datos para los ETFs: {etfs} entre {start_date} y {end_date}.")
+        return data
+    except Exception as e:
+        st.error(f"Error al descargar datos: {e}")
+        return pd.DataFrame()
+
+# Selección de ventana de tiempo
+st.sidebar.header("Configuración de Ventana")
+ventana = st.sidebar.selectbox("Selecciona una ventana de tiempo:", list(ventanas.keys()))
+start_date, end_date = ventanas[ventana]
+
+# Descargar datos
 datos = obtener_datos(etfs, start_date, end_date)
 
+# Validar que los datos no estén vacíos
 if datos.empty:
-    st.error("No se pudieron obtener datos para los ETFs seleccionados. Revisa las fechas o la conexión a Internet.")
+    st.error("No se pudieron obtener datos. Revisa las fechas o la conexión a internet.")
 else:
-    # Rendimientos diarios
+    # Mostrar los datos descargados
+    st.subheader(f"Datos descargados para la ventana {ventana}")
+    st.dataframe(datos.head())
+
+    # Calcular rendimientos diarios
     rendimientos = datos.pct_change().dropna()
-    
-    if rendimientos.isnull().values.any():
-        st.error("Los datos contienen valores nulos o infinitos. Por favor, verifica las fechas seleccionadas.")
+
+    if rendimientos.empty:
+        st.error("No se pudieron calcular los rendimientos. Verifica los datos.")
     else:
         # Cálculo de métricas
         def calcular_metricas(rendimientos):
