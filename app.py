@@ -60,3 +60,62 @@ metricas_df = pd.DataFrame(metricas).T
 # Visualización de métricas
 st.header(f"Estadísticas para la ventana {ventana}")
 st.dataframe(metricas_df)
+
+# Optimización de portafolios
+def optimizar_portafolio(rendimientos, objetivo="sharpe", rendimiento_objetivo=None):
+    media = rendimientos.mean() * 252
+    covarianza = rendimientos.cov() * 252
+    num_activos = len(media)
+    pesos_iniciales = np.ones(num_activos) / num_activos
+    limites = [(0, 1) for _ in range(num_activos)]
+    restricciones = [{'type': 'eq', 'fun': lambda x: np.sum(x) - 1}]
+
+    if objetivo == "sharpe":
+        def objetivo_func(pesos):
+            rendimiento = np.dot(pesos, media)
+            riesgo = np.sqrt(np.dot(pesos.T, np.dot(covarianza, pesos)))
+            return -rendimiento / riesgo
+    elif objetivo == "volatilidad":
+        def objetivo_func(pesos):
+            return np.sqrt(np.dot(pesos.T, np.dot(covarianza, pesos)))
+    elif objetivo == "rendimiento":
+        restricciones.append({'type': 'eq', 'fun': lambda x: np.dot(x, media) - rendimiento_objetivo})
+        def objetivo_func(pesos):
+            return np.sqrt(np.dot(pesos.T, np.dot(covarianza, pesos)))
+
+    resultado = sco.minimize(objetivo_func, pesos_iniciales, method='SLSQP', bounds=limites, constraints=restricciones)
+    return resultado.x
+
+# Pesos óptimos para portafolios
+pesos_sharpe = optimizar_portafolio(rendimientos, objetivo="sharpe")
+pesos_volatilidad = optimizar_portafolio(rendimientos, objetivo="volatilidad")
+pesos_rendimiento = optimizar_portafolio(rendimientos, objetivo="rendimiento", rendimiento_objetivo=0.10)
+
+pesos_df = pd.DataFrame({
+    "Máximo Sharpe": pesos_sharpe,
+    "Mínima Volatilidad": pesos_volatilidad,
+    "Rendimiento Objetivo 10%": pesos_rendimiento
+}, index=etfs)
+
+st.header("Pesos de Portafolios Óptimos")
+st.bar_chart(pesos_df)
+
+# Gráficos de precios normalizados
+precios_normalizados = datos / datos.iloc[0] * 100
+fig = go.Figure()
+for etf in etfs:
+    fig.add_trace(go.Scatter(x=precios_normalizados.index, y=precios_normalizados[etf], mode='lines', name=etf))
+fig.update_layout(title="Precios Normalizados", xaxis_title="Fecha", yaxis_title="Precio Normalizado")
+st.plotly_chart(fig)
+
+# Información descriptiva de activos
+st.sidebar.header("Descripción de Activos")
+descripciones = {
+    "LQD": "Bonos corporativos denominados en USD con grado de inversión.",
+    "EMB": "Bonos de mercados emergentes denominados en USD.",
+    "ACWI": "Empresas internacionales de mercados desarrollados y emergentes.",
+    "SPY": "Empresas de alta capitalización de Estados Unidos.",
+    "WMT": "Retailer global con enfoque en mercados de Estados Unidos."
+}
+activo_seleccionado = st.sidebar.selectbox("Selecciona un activo:", etfs)
+st.sidebar.write(descripciones[activo_seleccionado])
