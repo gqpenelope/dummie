@@ -302,11 +302,11 @@ with tab1:
             )
             
             # Métricas calculadas
+            # Métricas calculadas
             with col2:
                 st.subheader("Métricas Calculadas")
-                 metricas_expandidas = st.columns(3)  # Dividimos las métricas en 3 columnas
-                
-                #def calcular_metricas(rendimientos):
+                metricas_expandidas = st.columns(3)  # Dividimos las métricas en 3 columnas
+            
                 # Mostrar las métricas en recuadros
                 with metricas_expandidas[0]:
                     st.metric(label="Media", value=f"{metricas[etf_seleccionado]['Media']:.2f}")
@@ -314,15 +314,15 @@ with tab1:
                     st.metric(label="Volatilidad", value=f"{metricas[etf_seleccionado]['Volatilidad']:.2f}")
                 with metricas_expandidas[2]:
                     st.metric(label="Sharpe", value=f"{metricas[etf_seleccionado]['Sharpe']:.2f}")
-                with metricas_expandidas[3]:
-                    st.metric(label="Sesgo", value=f"{metricas[etf_seleccionado]['Sesgo']:.2f}")
+            
                 metricas_expandidas_2 = st.columns(3)
                 with metricas_expandidas_2[0]:
-                    st.metric(label="Curtosis", value=f"{metricas[etf_seleccionado]['Curtosis']:.2f}")
+                    st.metric(label="Sesgo", value=f"{metricas[etf_seleccionado]['Sesgo']:.2f}")
                 with metricas_expandidas_2[1]:
-                    st.metric(label="VaR", value=f"{metricas[etf_seleccionado]['VaR']:.2f}")
+                    st.metric(label="Curtosis", value=f"{metricas[etf_seleccionado]['Curtosis']:.2f}")
                 with metricas_expandidas_2[2]:
-                    st.metric(label="CVaR", value=f"{metricas[etf_seleccionado]['VaR']:.2f}")
+                    st.metric(label="VaR", value=f"{metricas[etf_seleccionado]['VaR']:.2f}")
+
                                 
                 style_metric_cards(background_color="#84BC9C", border_left_color="#F46197")
 
