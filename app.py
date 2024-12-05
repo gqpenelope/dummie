@@ -234,7 +234,7 @@ with tab1:
             st.error(f"No hay datos disponibles para {etf_seleccionado} en la ventana seleccionada.")
         else:
              # Dividir en dos columnas
-            col1, col2 = st.columns(2)
+            col1, col2 = st.columns([3, 2])  # Relación 3:2 entre las columnas izquierda y derecha
 
             with col1:
                 st.subheader("Características del ETF")
@@ -300,60 +300,69 @@ with tab1:
                 """,
                 unsafe_allow_html=True
             )
-    
+            
             # Métricas calculadas
             with col2:
                 st.subheader("Métricas Calculadas")
+                 metricas_expandidas = st.columns(3)  # Dividimos las métricas en 3 columnas
                 
                 #def calcular_metricas(rendimientos):
                 # Mostrar las métricas en recuadros
-                st.metric("Media", value=f"{metricas[etf_seleccionado]['Media']:.2f}")
-                st.metric("Volatilidad", value=f"{metricas[etf_seleccionado]['Volatilidad']:.2f}")
-                st.metric("Sharpe", value=f"{metricas[etf_seleccionado]['Sharpe']:.2f}") 
-                st.metric("Sesgo", value=f"{metricas[etf_seleccionado]['Sesgo']:.2f}") 
-                st.metric("Curtosis", value=f"{metricas[etf_seleccionado]['Curtosis']:.2f}")
-                st.metric("VaR", value=f"{metricas[etf_seleccionado]['VaR']:.2f}")
-                st.metric("CVaR", value=f"{metricas[etf_seleccionado]['CVaR']:.2f}")
-                    
+                with metricas_expandidas[0]:
+                    st.metric(label="Media", value=f"{metricas[etf_seleccionado]['Media']:.2f}")
+                with metricas_expandidas[1]:
+                    st.metric(label="Volatilidad", value=f"{metricas[etf_seleccionado]['Volatilidad']:.2f}")
+                with metricas_expandidas[2]:
+                    st.metric(label="Sharpe", value=f"{metricas[etf_seleccionado]['Sharpe']:.2f}")
+                with metricas_expandidas[3]:
+                    st.metric(label="Sesgo", value=f"{metricas[etf_seleccionado]['Sesgo']:.2f}")
+                metricas_expandidas_2 = st.columns(3)
+                with metricas_expandidas_2[0]:
+                    st.metric(label="Curtosis", value=f"{metricas[etf_seleccionado]['Curtosis']:.2f}")
+                with metricas_expandidas_2[1]:
+                    st.metric(label="VaR", value=f"{metricas[etf_seleccionado]['VaR']:.2f}")
+                with metricas_expandidas_2[2]:
+                    st.metric(label="CVaR", value=f"{metricas[etf_seleccionado]['VaR']:.2f}")
+                                
                 style_metric_cards(background_color="#84BC9C", border_left_color="#F46197")
 
-            # Gráfica de precios normalizados
-            st.subheader("Serie de Tiempo de Precios Normalizados")
-            precios_normalizados = datos[etf_seleccionado] / datos[etf_seleccionado].iloc[0] * 100
-            fig = go.Figure(go.Scatter(
-                x=precios_normalizados.index,
-                y=precios_normalizados,
-                mode='lines',
-                name=etf_seleccionado,
-                line=dict(color='#F46197') 
-            ))
-                            
-            fig.update_layout(
-                title=dict(
-                    text="Precio Normalizado",
-                    font=dict(color='white'),
-                ),
-                xaxis=dict(
-                    title="Fecha",
-                    titlefont=dict(color='white'),  # Etiqueta del eje x en blanco
-                    tickfont=dict(color='white')  # Etiquetas de los ticks en blanco
-                ),
-                yaxis=dict(
-                    title="Precio Normalizado",
-                    titlefont=dict(color='white'),  # Etiqueta del eje y en blanco
-                    tickfont=dict(color='white')  # Etiquetas de los ticks en blanco
-                ),
-                hovermode="x unified",
-                plot_bgcolor='#1D1E2C',  # Fondo del área de la gráfica
-                paper_bgcolor='#1D1E2C',  # Fondo del área completa de la gráfica
-                font=dict(color='white')  # Color del texto general
-            )
-    
-            fig.update_xaxes(showgrid=False)  # Oculta líneas de cuadrícula verticales
-            fig.update_yaxes(showgrid=False)  # Oculta líneas de cuadrícula horizontales
-    
-            st.plotly_chart(fig)
-            st.subheader("Serie de Tiempo de Precios Normalizados")
+                # Gráfica de precios normalizados
+                st.subheader("Serie de Tiempo de Precios Normalizados")
+                precios_normalizados = datos[etf_seleccionado] / datos[etf_seleccionado].iloc[0] * 100
+                fig = go.Figure(go.Scatter(
+                    x=precios_normalizados.index,
+                    y=precios_normalizados,
+                    mode='lines',
+                    name=etf_seleccionado,
+                    line=dict(color='#F46197') 
+                ))
+                                
+                fig.update_layout(
+                    title=dict(
+                        text="Precio Normalizado",
+                        font=dict(color='white'),
+                    ),
+                    xaxis=dict(
+                        title="Fecha",
+                        titlefont=dict(color='white'),  # Etiqueta del eje x en blanco
+                        tickfont=dict(color='white')  # Etiquetas de los ticks en blanco
+                    ),
+                    yaxis=dict(
+                        title="Precio Normalizado",
+                        titlefont=dict(color='white'),  # Etiqueta del eje y en blanco
+                        tickfont=dict(color='white')  # Etiquetas de los ticks en blanco
+                    ),
+                    hovermode="x unified",
+                    plot_bgcolor='#1D1E2C',  # Fondo del área de la gráfica
+                    paper_bgcolor='#1D1E2C',  # Fondo del área completa de la gráfica
+                    font=dict(color='white')  # Color del texto general
+                )
+        
+                fig.update_xaxes(showgrid=False)  # Oculta líneas de cuadrícula verticales
+                fig.update_yaxes(showgrid=False)  # Oculta líneas de cuadrícula horizontales
+        
+                st.plotly_chart(fig)
+                st.subheader("Serie de Tiempo de Precios Normalizados")
             
             # Gráfica del VaR y CVaR
             def histog_distr(returns, var_95, cvar_95, title):
