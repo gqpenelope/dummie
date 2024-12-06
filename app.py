@@ -468,15 +468,6 @@ with tab2:
     datos_2010_2020 = obtener_datos(etfs, start_date, end_date)  # Descargar datos para 2010-2020
     rendimientos_2010_2020 = datos_2010_2020.pct_change().dropna()  # Calcular rendimientos
 
-    # Mostrar un aviso para el usuario
-    st.markdown(
-        f"""
-        <div style="text-align: center; padding: 10px; border-radius: 10px; color: black; font-weight: bold;">
-            Este análisis utiliza exclusivamente datos de la ventana: <u>2010-2020</u>.
-        </div>
-        """,
-        unsafe_allow_html=True
-    )
     st.markdown(
     """
     <div style="
@@ -490,6 +481,15 @@ with tab2:
     </div>
     """,
     unsafe_allow_html=True,
+    )
+        # Mostrar un aviso para el usuario
+    st.markdown(
+        f"""
+        <div style="text-align: center; padding: 10px; border-radius: 10px; color: black; font-weight: bold;">
+            Este análisis utiliza exclusivamente datos de la ventana: <u>2010-2020</u>.
+        </div>
+        """,
+        unsafe_allow_html=True
     )
 
     # Función para optimizar portafolios
