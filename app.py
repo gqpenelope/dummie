@@ -409,7 +409,8 @@ with tab1:
                     unsafe_allow_html=True
                 )
                 metricas = calcular_metricas(rendimientos[etf_seleccionado])
-                                st.columns(3)
+                
+                st.columns(3)
                 col1, col2, col3 = st.columns(3)
                 with col1:
                     st.metric(label="Media", value=f"{metricas['Media']:.2f}")
