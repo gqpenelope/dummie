@@ -405,23 +405,18 @@ with tab1:
                 with col5:
                     st.metric(label="Curtosis", value=f"{metricas['Curtosis']:.2f}")
                 with col6:
-                    st.metric(label="Beta", value=f"{metricas['Beta']:.2f}")
+                   st.metric(label="Sortino Ratio", value=f"{metricas['Sortino Ratio']:.2f}")
                     
-                col7, col8, col9 = st.columns(3)
-                with col4:
+                col7, col8, col9, col10 = st.columns(4)
+                with col7:
                     st.metric(label="VaR", value=f"{metricas['VaR']:.2f}")
-                with col5:
+                with col8:
                     st.metric(label="CVaR", value=f"{metricas['CVaR']:.2f}")
-                with col6:
+                with col9:
                     st.metric(label="Drawdown", value=f"{metricas['Drawdown']:.2f}")
-
-                col10, col11, col12 = st.columns(3)
                 with col10:
-                    st.metric(label="Momentum", value=f"{metricas['Sesgo']:.2f}")
-                with col11:
-                    st.metric(label="Duración", value=f"{metricas['Curtosis']:.2f}")
-                with col12:
-                    st.metric(label="Sortino Ratio", value=f"{metricas['Sortino Ratio']:.2f}")
+                    st.metric(label="Momentum", value=f"{metricas['Momentum']:.2f}")
+                    
 
                 # Histograma de rendimientos
                 st.subheader("Histograma de Rendimientos con VaR y CVaR")
@@ -570,7 +565,7 @@ with tab2:
             st.write(f"**Tipo de cambio medio esperado:** {tipo_cambio_medio:.2f} USD/MXN")
         except Exception as e:
             st.error(f"Error al calcular el promedio del tipo de cambio: {e}")
-# Tab 3: Comparación de Portafolios
+
 # Tab 3: Comparación de Portafolios
 with tab3:
     st.header("Comparación de Portafolios")
