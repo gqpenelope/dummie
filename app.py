@@ -152,14 +152,38 @@ def var_cvar(returns, confianza=0.95):
     CVaR = returns[returns <= VaR].mean()
     return VaR, CVaR
 
-# Función para calcular métricas
-def calcular_metricas(rendimientos):
+# Función para calcular métricas adicionales
+def calcular_metricas(rendimientos, benchmark=None, rf_rate=0.02):
+    # Métricas básicas
     media = rendimientos.mean() * 252  # Rendimiento anualizado
     volatilidad = rendimientos.std() * np.sqrt(252)  # Volatilidad anualizada
-    sharpe = media / volatilidad  # Ratio Sharpe
+    sharpe = (media - rf_rate) / volatilidad  # Ratio Sharpe
     sesgo = rendimientos.skew()  # Sesgo de los rendimientos
     curtosis = rendimientos.kurt()  # Curtosis de los rendimientos
     VaR, CVaR = var_cvar(rendimientos)
+    
+    # Sortino Ratio
+    rendimientos_negativos = rendimientos[rendimientos < 0]
+    downside_deviation = np.sqrt((rendimientos_negativos ** 2).mean()) * np.sqrt(252)
+    sortino_ratio = media / downside_deviation if downside_deviation > 0 else np.nan
+    
+    # Drawdown
+    rendimiento_acumulado = (1 + rendimientos).cumprod()
+    max_acumulado = rendimiento_acumulado.cummax()
+    drawdown = (rendimiento_acumulado / max_acumulado - 1).min()
+    
+    # Beta
+    beta = np.nan
+    if benchmark is not None:
+        covarianza = np.cov(rendimientos, benchmark)[0, 1]
+        beta = covarianza / np.var(benchmark)
+    
+    # Momentum: suma de rendimientos de los últimos 12 meses
+    momentum = rendimientos[-252:].sum() if len(rendimientos) >= 252 else np.nan
+
+    # Duración (para activos de renta fija como bonos)
+    duracion = np.nan  # Placeholder (se necesita información adicional sobre los bonos)
+
     return {
         "Media": media,
         "Volatilidad": volatilidad,
@@ -167,12 +191,22 @@ def calcular_metricas(rendimientos):
         "Sesgo": sesgo,
         "Curtosis": curtosis,
         "VaR": VaR,
-        "CVaR": CVaR
+        "CVaR": CVaR,
+        "Sortino Ratio": sortino_ratio,
+        "Drawdown": drawdown,
+        "Beta": beta,
+        "Momentum": momentum,
+        "Duración": duracion,
     }
 
-# Calcular métricas para cada ETF
-metricas = {etf: calcular_metricas(rendimientos[etf]) for etf in etfs}
+# Calcular métricas para cada ETF con SPY como benchmark
+benchmark = rendimientos['SPY']  # Usamos SPY como índice de referencia
+metricas = {
+    etf: calcular_metricas(rendimientos[etf], benchmark if etf != 'SPY' else None)
+    for etf in etfs
+}
 metricas_df = pd.DataFrame(metricas).T  # Convertir a DataFrame para análisis tabular
+
 # Función para crear el histograma con hover interactivo
 def histog_distr(returns, var_95, cvar_95, title):
     # Crear el histograma base
