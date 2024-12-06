@@ -408,7 +408,7 @@ with tab1:
                 with col6:
                     st.metric(label="Beta", value=f"{metricas['Beta']:.2f}")
                     
-                col7, col8, col9 = st.columns(5)
+                col7, col8, col9 = st.columns(3)
                 with col4:
                     st.metric(label="VaR", value=f"{metricas['VaR']:.2f}")
                 with col5:
@@ -416,7 +416,7 @@ with tab1:
                 with col6:
                     st.metric(label="Drawdown", value=f"{metricas['Drawdown']:.2f}")
 
-                col10, col11, col12 = st.columns(5)
+                col10, col11, col12 = st.columns(3)
                 with col10:
                     st.metric(label="Momentum", value=f"{metricas['Sesgo']:.2f}")
                 with col11:
