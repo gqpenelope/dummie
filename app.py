@@ -332,7 +332,6 @@ with tab1:
                     table {
                         color: white;
                         background-color: transparent;
-
                         width: 100%;
                     }
                     th {
@@ -346,6 +345,7 @@ with tab1:
                     td {      
                         padding: 8px;
                         text-align: center;
+                        border-bottom: 1px solid white
 
                     }
                     </style>
