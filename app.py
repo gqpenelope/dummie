@@ -269,7 +269,6 @@ def histog_distr(returns, var_95, cvar_95, title):
     return fig
 
 # Tab 1: Análisis de Activos Individuales
-# Tab 1: Análisis de Activos Individuales
 with tab1:
     st.markdown(
         """
@@ -400,14 +399,30 @@ with tab1:
                     st.metric(label="Volatilidad", value=f"{metricas['Volatilidad']:.2f}")
                 with col3:
                     st.metric(label="Sharpe", value=f"{metricas['Sharpe']:.2f}")
-
-                col4, col5, col6 = st.columns(3)
+                
+                col4, col5,col6 = st.columns(3) 
                 with col4:
                     st.metric(label="Sesgo", value=f"{metricas['Sesgo']:.2f}")
                 with col5:
                     st.metric(label="Curtosis", value=f"{metricas['Curtosis']:.2f}")
                 with col6:
+                    st.metric(label="Beta", value=f"{metricas['Beta']:.2f}")
+                    
+                col7, col8, col9 = st.columns(5)
+                with col4:
                     st.metric(label="VaR", value=f"{metricas['VaR']:.2f}")
+                with col5:
+                    st.metric(label="CVaR", value=f"{metricas['CVaR']:.2f}")
+                with col6:
+                    st.metric(label="Drawdown", value=f"{metricas['Drawdown']:.2f}")
+
+                col10, col11, col12 = st.columns(5)
+                with col10:
+                    st.metric(label="Momentum", value=f"{metricas['Sesgo']:.2f}")
+                with col11:
+                    st.metric(label="Duración", value=f"{metricas['Curtosis']:.2f}")
+                with col12:
+                    st.metric(label="Sortino Ratio", value=f"{metricas['Sortino Ratio']:.2f}")
 
                 # Histograma de rendimientos
                 st.subheader("Histograma de Rendimientos con VaR y CVaR")
