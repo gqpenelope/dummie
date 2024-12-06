@@ -333,6 +333,7 @@ with tab1:
                         color: white;
                         background-color: transparent;
                         width: 100%;
+                        border-collapse: collapse;
                     }
                     th {
                         background-color: transparent;
@@ -346,6 +347,8 @@ with tab1:
                         padding: 8px;
                         text-align: center;
                         border-bottom: 1px solid white;
+                    }
+                    td,th {      
                         border-left: none;
                         border-right: none;
                     }
