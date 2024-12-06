@@ -325,9 +325,6 @@ with tab1:
                     ]
                 })
 
-                # Convertir el DataFrame a HTML y renderizarlo
-                        #border-collapse: collapse;  
-                                        #border: 1px solid white;
                 tabla_html = tabla_caracteristicas.to_html(index=False, escape=False)
                 st.markdown(
                     """
@@ -344,7 +341,7 @@ with tab1:
                         font-weight: bold;
                         text-align: center;
                         vertical-align: middle;
-                        # border-bottom: 10px solid white;
+                        border-bottom: 10px solid white;
                     }
                     td {
                         
