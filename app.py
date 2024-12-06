@@ -457,23 +457,7 @@ with tab1:
                 histograma = histog_distr(rendimientos[etf_seleccionado], var_95, cvar_95, f"Distribución de rendimientos para {etf_seleccionado}")
                 st.plotly_chart(histograma)
 
-          
-            st.markdown(
-                """
-                <style>
-                .stMarkdown {
-                    height: 100%;
-                }
-                .metric-container {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    height: 100%;
-                }
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
+
 
 # Tab 2: Portafolios Óptimos
 with tab2:
