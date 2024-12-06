@@ -338,13 +338,12 @@ with tab1:
                     th {
                         background-color: transparent;
                         color: #2CA58D;
+                        font-size: 20px;
                         font-weight: bold;
                         text-align: center;
                         vertical-align: middle;
-                        border-bottom: 10px solid white;
                     }
-                    td {
-                        
+                    td {      
                         padding: 8px;
                         text-align: center;
 
