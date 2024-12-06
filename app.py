@@ -265,7 +265,7 @@ with tab1:
     st.markdown(
         """
         <div style="
-            background-color: #C4F5FC;
+            background-color: #FFB703;
             padding: 8px;
             border-radius: 20px;
             color: black;
@@ -334,12 +334,6 @@ with tab1:
                 st.markdown(
                     """
                     <style>
-                    .tabla-container {
-                        display: flex;
-                        justify-content: center; /* Centra horizontalmente */
-                        align-items: center;    /* Centra verticalmente si es necesario */
-                        width: 100%;            /* Asegura que abarque todo el espacio disponible */
-                    }
                     table {
                         color: white;
                         background-color: transparent;
@@ -372,11 +366,7 @@ with tab1:
                     """,
                     unsafe_allow_html=True
                 )
-                # Contenedor para centrar la tabla
-                st.markdown('<div class="tabla-container">', unsafe_allow_html=True)
                 st.markdown(tabla_html, unsafe_allow_html=True)
-                st.markdown('</div>', unsafe_allow_html=True)
-
             # Columna Derecha
             with col2:
                 st.markdown('<div class="titulo-columnas">Métricas Calculadas</div>', unsafe_allow_html=True)
