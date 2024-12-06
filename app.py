@@ -207,7 +207,7 @@ def histog_distr(returns, var_95, cvar_95, title):
         x=returns,
         nbinsx=50,
         name="Distribución de rendimientos",
-        marker_color="#4CAF50",
+        marker_color="#2CA58D",
         opacity=0.75
     ))
 
@@ -216,7 +216,7 @@ def histog_distr(returns, var_95, cvar_95, title):
         x=var_95,
         line_width=3,
         line_dash="dash",
-        line_color="red"
+        line_color="#F46197"
     )
     fig.add_annotation(
         x=var_95,
@@ -226,7 +226,7 @@ def histog_distr(returns, var_95, cvar_95, title):
         arrowhead=2,
         ax=40,
         ay=-40,
-        font=dict(color="red")
+        font=dict(color="#F46197")
     )
 
     # Añadir línea del CVaR
@@ -234,7 +234,7 @@ def histog_distr(returns, var_95, cvar_95, title):
         x=cvar_95,
         line_width=3,
         line_dash="dash",
-        line_color="blue"
+        line_color="#FB8500"
     )
     fig.add_annotation(
         x=cvar_95,
@@ -244,7 +244,7 @@ def histog_distr(returns, var_95, cvar_95, title):
         arrowhead=2,
         ax=-40,
         ay=-40,
-        font=dict(color="blue")
+        font=dict(color="#FB8500")
     )
 
     # Configuración del diseño
@@ -426,7 +426,7 @@ with tab1:
 
         with st.container():
             # Dividir en dos columnas
-            col1, col2 = st.columns(2)  # Relación 3:2 entre columnas izquierda y derecha
+            col1, col2 = st.columns(2)
 
             with col1:
                  # Gráfica de precios normalizados
