@@ -306,10 +306,10 @@ with tab1:
                     unsafe_allow_html=True
                 )
 
-            # Títulos centrados
-            st.markdown('<div class="titulo-columnas">Características del ETF</div>', unsafe_allow_html=True)
-            st.markdown('<div class="titulo-columnas">Métricas Calculadas</div>', unsafe_allow_html=True)
-            st.markdown('<hr style="border-top: 1px solid white;">', unsafe_allow_html=True)
+                # Títulos centrados
+                st.markdown('<div class="titulo-columnas">Características del ETF</div>', unsafe_allow_html=True)
+                st.markdown('<div class="titulo-columnas">Métricas Calculadas</div>', unsafe_allow_html=True)
+                st.markdown('<hr style="border-top: 1px solid white;">', unsafe_allow_html=True)
 
                 data = descripciones_etfs[etf_seleccionado]
 
