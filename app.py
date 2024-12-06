@@ -82,7 +82,7 @@ descripciones_etfs = {
     "IAU": {
         "nombre": "iShares Gold Trust",
         "exposicion": "Inversión en oro físico como cobertura inflacionaria.",
-        "indice": "NA",
+        "indice": "LBMA Gold Price",
         "moneda": "USD",
         "principales": ["NA"],
         "paises": "Global",
