@@ -428,27 +428,7 @@ with tab1:
         with st.container():
             # Dividir en dos columnas
             col1, col2 = st.columns(2)  # Relación 3:2 entre columnas izquierda y derecha
-            st.markdown(
-                """
-                <style>
-                .titulo-columnas {
-                    text-align: center;
-                    font-size: 20px;
-                    font-weight: bold;
-                    color: white;
-                    margin-bottom: 10px;
-                    min-height: 30px; 
-                .columna {
-                    display: flex;
-                    flex-direction: column;
-                    justify-content: space-between;
-                    height: 100%; /* Altura completa para igualar columnas */
-                }
-                </style>
-                """,
-                unsafe_allow_html=True
-            )
-            
+
             with col1:
                  # Gráfica de precios normalizados
                 st.markdown('<div class="titulo-columnas">Serie de Tiempo de Precios Normalizados</div>', unsafe_allow_html=True)
