@@ -280,10 +280,33 @@ with tab1:
     # Selección del ETF para análisis
     etf_seleccionado = st.selectbox("Selecciona un ETF para análisis:", options=etfs)
 
-    if etf_seleccionado:
-        if etf_seleccionado not in datos.columns or datos[etf_seleccionado].dropna().empty:
-            st.error(f"No hay datos disponibles para {etf_seleccionado} en la ventana seleccionada.")
-        else:
+    if etf_seleccionado not in datos.columns or datos[etf_seleccionado].dropna().empty:
+        st.error(f"No hay datos disponibles para {etf_seleccionado} en la ventana seleccionada.")
+    else:
+        st.markdown(
+            """
+            <style>
+            /* Contenedor padre para ambas columnas */
+            .stColumns {
+                display: flex;
+                align-items: stretch; /* Asegura que ambas columnas tengan la misma altura */
+            }
+            .stColumn {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 100%;
+            }
+            /* Ajustar los márgenes entre elementos dentro de las columnas */
+            .stMarkdown {
+                flex-grow: 1;
+            }
+            </style>
+            """,
+            unsafe_allow_html=True
+        )
+        #para que las columnas esten del mismo tamaño
+        with st.container():
             # Dividir en dos columnas
             col1, col2 = st.columns([3, 2])  # Relación 3:2 entre columnas izquierda y derecha
             st.markdown(
