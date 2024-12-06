@@ -368,30 +368,6 @@ with tab1:
                 )
                 st.markdown(tabla_html, unsafe_allow_html=True)
 
-                # Gráfica de precios normalizados
-                st.subheader("Serie de Tiempo de Precios Normalizados")
-                precios_normalizados = datos[etf_seleccionado] / datos[etf_seleccionado].iloc[0] * 100
-                fig_precios = go.Figure(go.Scatter(
-                    x=precios_normalizados.index,
-                    y=precios_normalizados,
-                    mode='lines',
-                    name=etf_seleccionado,
-                    line=dict(color='#F46197')
-                ))
-
-                fig_precios.update_layout(
-                    title=dict(text="Precio Normalizado", font=dict(color='white')),
-                    xaxis=dict(title="Fecha", titlefont=dict(color='white'), tickfont=dict(color='white')),
-                    yaxis=dict(title="Precio Normalizado", titlefont=dict(color='white'), tickfont=dict(color='white')),
-                    hovermode="x unified",
-                    plot_bgcolor='#1D1E2C',
-                    paper_bgcolor='#1D1E2C',
-                    font=dict(color='white')
-                )
-                fig_precios.update_xaxes(showgrid=False)
-                fig_precios.update_yaxes(showgrid=False)
-                st.plotly_chart(fig_precios)
-
             # Columna Derecha
             with col2:
                 st.markdown('<div class="titulo-columnas">Métricas Calculadas</div>', unsafe_allow_html=True)
@@ -449,14 +425,61 @@ with tab1:
                 col10 = st.columns(1)
                 st.metric(label="Momentum", value=f"{metricas['Momentum']:.2f}")
 
+        with st.container():
+            # Dividir en dos columnas
+            col1, col2 = st.columns(2)  # Relación 3:2 entre columnas izquierda y derecha
+            st.markdown(
+                """
+                <style>
+                .titulo-columnas {
+                    text-align: center;
+                    font-size: 20px;
+                    font-weight: bold;
+                    color: white;
+                    margin-bottom: 10px;
+                    min-height: 30px; 
+                .columna {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    height: 100%; /* Altura completa para igualar columnas */
+                }
+                </style>
+                """,
+                unsafe_allow_html=True
+            )
+            
+            with col1:
+                 # Gráfica de precios normalizados
+                st.markdown('<div class="titulo-columnas">Serie de Tiempo de Precios Normalizados</div>', unsafe_allow_html=True)
+                precios_normalizados = datos[etf_seleccionado] / datos[etf_seleccionado].iloc[0] * 100
+                fig_precios = go.Figure(go.Scatter(
+                    x=precios_normalizados.index,
+                    y=precios_normalizados,
+                    mode='lines',
+                    name=etf_seleccionado,
+                    line=dict(color='#F46197')
+                ))
 
+                fig_precios.update_layout(
+                    title=dict(text="Precio Normalizado", font=dict(color='white')),
+                    xaxis=dict(title="Fecha", titlefont=dict(color='white'), tickfont=dict(color='white')),
+                    yaxis=dict(title="Precio Normalizado", titlefont=dict(color='white'), tickfont=dict(color='white')),
+                    hovermode="x unified",
+                    plot_bgcolor='#1D1E2C',
+                    paper_bgcolor='#1D1E2C',
+                    font=dict(color='white')
+                )
+                fig_precios.update_xaxes(showgrid=False)
+                fig_precios.update_yaxes(showgrid=False)
+                st.plotly_chart(fig_precios)
+            
+            with col2:
                 # Histograma de rendimientos
-                st.subheader("Histograma de Rendimientos con VaR y CVaR")
+                st.markdown('<div class="titulo-columnas">Histograma de Rendimientos con VaR y CVaR</div>', unsafe_allow_html=True) 
                 var_95, cvar_95 = var_cvar(rendimientos[etf_seleccionado], confianza=0.95)
                 histograma = histog_distr(rendimientos[etf_seleccionado], var_95, cvar_95, f"Distribución de rendimientos para {etf_seleccionado}")
                 st.plotly_chart(histograma)
-
-
 
 # Tab 2: Portafolios Óptimos
 with tab2:
