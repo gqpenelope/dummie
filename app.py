@@ -196,8 +196,6 @@ def calcular_metricas(rendimientos, benchmark=None, rf_rate=0.02):
         "Momentum": momentum,
     }
 
-# Calcular métricas para cada ETF con SPY como benchmark
-benchmark = rendimientos['SPY']  # Usamos SPY como índice de referencia
 metricas = {
     etf: calcular_metricas(rendimientos[etf], benchmark if etf != 'SPY' else None)
     for etf in etfs
@@ -308,10 +306,10 @@ with tab1:
                     unsafe_allow_html=True
                 )
 
-# Títulos centrados
-st.markdown('<div class="titulo-columnas">Características del ETF</div>', unsafe_allow_html=True)
-st.markdown('<div class="titulo-columnas">Métricas Calculadas</div>', unsafe_allow_html=True)
-st.markdown('<hr style="border-top: 1px solid white;">', unsafe_allow_html=True)
+            # Títulos centrados
+            st.markdown('<div class="titulo-columnas">Características del ETF</div>', unsafe_allow_html=True)
+            st.markdown('<div class="titulo-columnas">Métricas Calculadas</div>', unsafe_allow_html=True)
+            st.markdown('<hr style="border-top: 1px solid white;">', unsafe_allow_html=True)
 
                 data = descripciones_etfs[etf_seleccionado]
 
