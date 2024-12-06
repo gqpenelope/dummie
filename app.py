@@ -414,6 +414,8 @@ with tab1:
                     st.metric(label="CVaR", value=f"{metricas['CVaR']:.2f}")
                 with col9:
                     st.metric(label="Drawdown", value=f"{metricas['Drawdown']:.2f}")
+                
+                col10 = st.columns(1)
                 with col10:
                     st.metric(label="Momentum", value=f"{metricas['Momentum']:.2f}")
                     
