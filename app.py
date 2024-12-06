@@ -64,8 +64,8 @@ descripciones_etfs = {
         "paises": "Estados Unidos",
         "estilo": "Mix(Growth/Value)",
         "costos": "Comisión de administración: 0.03%",
-        "beta": "",
-        "duracion": ""
+        "beta": "1.01",
+        "duracion": "NA"
     },
     "EMXC": {
         "nombre": "iShares MSCI Emerging Markets ex China ETF",
@@ -82,9 +82,9 @@ descripciones_etfs = {
     "IAU": {
         "nombre": "iShares Gold Trust",
         "exposicion": "Inversión en oro físico como cobertura inflacionaria.",
-        "indice": "N/A",
+        "indice": "NA",
         "moneda": "USD",
-        "principales": ["N/A"],
+        "principales": ["NA"],
         "paises": "Global",
         "estilo": "Commodity",
         "costos": "Comisión de administración: 0.25%",
