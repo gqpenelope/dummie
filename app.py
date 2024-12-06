@@ -462,11 +462,28 @@ with tab1:
 
 # Tab 2: Portafolios Óptimos
 with tab2:
+    st.markdown('<h2 style="text-align: center; color: white;">Portafolios Óptimos</h2>', unsafe_allow_html=True)
+
+    # Forzar ventana de tiempo a 2010-2020 para este tab
+    ventana_fijada = "2010-2020"
+    start_date, end_date = ventanas[ventana_fijada]  # Forzar los datos de esta ventana
+    datos_optimizacion = obtener_datos(etfs, start_date, end_date)  # Descargar datos para este rango
+    rendimientos_optimizacion = datos_optimizacion.pct_change().dropna()  # Calcular rendimientos
+
+    # Mostrar un aviso para el usuario
+    st.markdown(
+        f"""
+        <div style="text-align: center; background-color: #FACC15; padding: 10px; border-radius: 10px; color: black; font-weight: bold;">
+            Este análisis utiliza exclusivamente datos de la ventana: <u>2010-2020</u>.
+        </div>
+        """,
+        unsafe_allow_html=True
+    )
     st.header("Portafolios Óptimos")
     st.markdown(
     """
     <div style="
-        background-color: #C4F5FC;
+        background-color: #1D1E2C;
         padding: 8px;
         border-radius: 20px;
         color: black;
