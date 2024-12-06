@@ -334,6 +334,7 @@ with tab1:
                         background-color: transparent;
                         width: 100%;
                         border-collapse: collapse;
+                        border: none;
                     }
                     th {
                         background-color: transparent;
@@ -349,8 +350,12 @@ with tab1:
                         border-bottom: 1px solid white;
                     }
                     td,th {      
-                        border-left: none;
-                        border-right: none;
+                        border-left: none !important;;
+                        border-right: none !important;;
+                    }
+                    tr {      
+                        border-left: none !important;;
+                        border-right: none !important;;
                     }
                     </style>
                     """,
