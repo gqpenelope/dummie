@@ -39,7 +39,9 @@ descripciones_etfs = {
         "principales": ["JPMorgan Chase & Co", "Bank of America Corp", "Morgan Stanley"],
         "paises": "Estados Unidos y empresas multinacionales",
         "estilo": "Value",
-        "costos": "Comisión de administración: 0.14%"
+        "costos": "Comisión de administración: 0.14%",
+        "beta": "0.53",
+        "duracion": "8.45 años"
     },
     "EMB": {
         "nombre": "iShares J.P. Morgan USD Emerging Markets Bond ETF",
@@ -49,7 +51,9 @@ descripciones_etfs = {
         "principales": ["Turkey (Republic of)", "Saudi Arabia (Kingdom of)", "Brazil Federative Republic of"],
         "paises": "América Latina, Medio Oriente, África y Asia",
         "estilo": "Value",
-        "costos": "Comisión de administración: 0.39%"
+        "costos": "Comisión de administración: 0.39%",
+        "beta": "0.57",
+        "duracion": "7.04 años"
     },
     "SPY": {
         "nombre": "iShares Core S&P 500 ETF",
@@ -59,7 +63,9 @@ descripciones_etfs = {
         "principales": ["Apple Inc", "NVIDIA Corp", "Microsoft Corp"],
         "paises": "Estados Unidos",
         "estilo": "Mix(Growth/Value)",
-        "costos": "Comisión de administración: 0.03%"
+        "costos": "Comisión de administración: 0.03%",
+        "beta": "",
+        "duracion": ""
     },
     "EMXC": {
         "nombre": "iShares MSCI Emerging Markets ex China ETF",
@@ -69,7 +75,9 @@ descripciones_etfs = {
         "principales": ["Samsung Electronics", "Taiwan Semiconductor", "Infosys"],
         "paises": "Corea del Sur, Taiwán, India, entre otros",
         "estilo": "Growth",
-        "costos": "Comisión de administración: 0.25%"
+        "costos": "Comisión de administración: 0.25%",
+        "beta": "",
+        "duracion": ""
     },
     "IAU": {
         "nombre": "iShares Gold Trust",
@@ -79,7 +87,9 @@ descripciones_etfs = {
         "principales": ["N/A"],
         "paises": "Global",
         "estilo": "Commodity",
-        "costos": "Comisión de administración: 0.25%"
+        "costos": "Comisión de administración: 0.25%",
+        "beta": "0.13",
+        "duracion": "NA"
     }
 }
 ventanas = {
@@ -161,6 +171,7 @@ def calcular_metricas(rendimientos, benchmark=None, rf_rate=0.02):
     sesgo = rendimientos.skew()  # Sesgo de los rendimientos
     curtosis = rendimientos.kurt()  # Curtosis de los rendimientos
     VaR, CVaR = var_cvar(rendimientos)
+    momentum = rendimientos[-252:].sum() if len(rendimientos) >= 252 else np.nan # Momentum: suma de rendimientos de los últimos 12 meses
     
     # Sortino Ratio
     rendimientos_negativos = rendimientos[rendimientos < 0]
@@ -171,18 +182,6 @@ def calcular_metricas(rendimientos, benchmark=None, rf_rate=0.02):
     rendimiento_acumulado = (1 + rendimientos).cumprod()
     max_acumulado = rendimiento_acumulado.cummax()
     drawdown = (rendimiento_acumulado / max_acumulado - 1).min()
-    
-    # Beta
-    beta = np.nan
-    if benchmark is not None:
-        covarianza = np.cov(rendimientos, benchmark)[0, 1]
-        beta = covarianza / np.var(benchmark)
-    
-    # Momentum: suma de rendimientos de los últimos 12 meses
-    momentum = rendimientos[-252:].sum() if len(rendimientos) >= 252 else np.nan
-
-    # Duración (para activos de renta fija como bonos)
-    duracion = np.nan  # Placeholder (se necesita información adicional sobre los bonos)
 
     return {
         "Media": media,
@@ -194,9 +193,7 @@ def calcular_metricas(rendimientos, benchmark=None, rf_rate=0.02):
         "CVaR": CVaR,
         "Sortino Ratio": sortino_ratio,
         "Drawdown": drawdown,
-        "Beta": beta,
         "Momentum": momentum,
-        "Duración": duracion,
     }
 
 # Calcular métricas para cada ETF con SPY como benchmark
@@ -302,7 +299,7 @@ with tab1:
 
                 # Tabla de características
                 tabla_caracteristicas = pd.DataFrame({
-                    "Características": ["Nombre", "Exposición", "Índice", "Moneda", "Principales Contribuyentes", "Países", "Estilo", "Costos"],
+                    "Características": ["Nombre", "Exposición", "Índice", "Moneda", "Principales Contribuyentes", "Países", "Estilo", "Costos", "Beta", "Duración"],
                     "Detalles": [
                         data["nombre"],
                         data["exposicion"],
@@ -311,7 +308,9 @@ with tab1:
                         ", ".join(data["principales"]),
                         data["paises"],
                         data["estilo"],
-                        data["costos"]
+                        data["costos"],
+                        data["beta"],
+                        data["duracion"]
                     ]
                 })
 
