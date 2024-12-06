@@ -409,10 +409,34 @@ with tab1:
                     unsafe_allow_html=True
                 )
                 metricas = calcular_metricas(rendimientos[etf_seleccionado])
-                st.markdown('<div class="metric-container">', unsafe_allow_html=True)
-                for key, value in metricas[etf_seleccionado].items():
-                    st.metric(label=key, value=f"{value:.2f}")
-                st.markdown('</div>', unsafe_allow_html=True)
+                                st.columns(3)
+                col1, col2, col3 = st.columns(3)
+                with col1:
+                    st.metric(label="Media", value=f"{metricas['Media']:.2f}")
+                with col2:
+                    st.metric(label="Volatilidad", value=f"{metricas['Volatilidad']:.2f}")
+                with col3:
+                    st.metric(label="Sharpe", value=f"{metricas['Sharpe']:.2f}")
+                
+                col4, col5,col6 = st.columns(3) 
+                with col4:
+                    st.metric(label="Sesgo", value=f"{metricas['Sesgo']:.2f}")
+                with col5:
+                    st.metric(label="Curtosis", value=f"{metricas['Curtosis']:.2f}")
+                with col6:
+                   st.metric(label="Sortino Ratio", value=f"{metricas['Sortino Ratio']:.2f}")
+                    
+                col7, col8, col9 = st.columns(3)
+                with col7:
+                    st.metric(label="VaR", value=f"{metricas['VaR']:.2f}")
+                with col8:
+                    st.metric(label="CVaR", value=f"{metricas['CVaR']:.2f}")
+                with col9:
+                    st.metric(label="Drawdown", value=f"{metricas['Drawdown']:.2f}")
+
+                col10 = st.columns(1)
+                st.metric(label="Momentum", value=f"{metricas['Momentum']:.2f}")
+
 
                 # Histograma de rendimientos
                 st.subheader("Histograma de Rendimientos con VaR y CVaR")
