@@ -294,7 +294,7 @@ with tab1:
                     font-size: 20px;
                     font-weight: bold;
                     color: white;
-                    margin-bottom: 20px;
+                    margin-bottom: 10px;
                     min-height: 50px; /* Altura mínima para alinear los títulos */
                 }
                 .columna {
