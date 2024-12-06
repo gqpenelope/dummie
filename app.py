@@ -286,24 +286,30 @@ with tab1:
         else:
             # Dividir en dos columnas
             col1, col2 = st.columns([3, 2])  # Relación 3:2 entre columnas izquierda y derecha
-
+            st.markdown(
+                """
+                <style>
+                .titulo-columnas {
+                    text-align: center;
+                    font-size: 20px;
+                    font-weight: bold;
+                    color: white;
+                    margin-bottom: 20px;
+                    min-height: 50px; /* Altura mínima para alinear los títulos */
+                }
+                .columna {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    height: 100%; /* Altura completa para igualar columnas */
+                }
+                </style>
+                """,
+                unsafe_allow_html=True
+            )
+            
             # Columna Izquierda
             with col1:
-                st.markdown(
-                    """
-                    <style>
-                    .titulo-columnas {
-                        text-align: center;
-                        font-size: 20px;
-                        font-weight: bold;
-                        color: white;
-                    }
-                    </style>
-                    """,
-                    unsafe_allow_html=True
-                )
-
-                # Títulos centrados
                 st.markdown('<div class="titulo-columnas">Características del ETF</div>', unsafe_allow_html=True)
                 
                 data = descripciones_etfs[etf_seleccionado]
@@ -451,32 +457,23 @@ with tab1:
                 histograma = histog_distr(rendimientos[etf_seleccionado], var_95, cvar_95, f"Distribución de rendimientos para {etf_seleccionado}")
                 st.plotly_chart(histograma)
 
-          st.markdown(
-            """
-            <style>
-            /* Ajustar contenedores de las columnas */
-            .block-container {
-                display: flex;
-                justify-content: space-between;
-                align-items: stretch;
-            }
-        
-            .stMarkdown {
-                height: 100%;
-            }
-        
-            /* Alinear las métricas calculadas */
-            .metric-container {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-around;
-                height: 100%;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-  
+          
+            st.markdown(
+                """
+                <style>
+                .stMarkdown {
+                    height: 100%;
+                }
+                .metric-container {
+                    display: flex;
+                    flex-direction: column;
+                    justify-content: space-between;
+                    height: 100%;
+                }
+                </style>
+                """,
+                unsafe_allow_html=True
+            )
 
 # Tab 2: Portafolios Óptimos
 with tab2:
