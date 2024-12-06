@@ -407,7 +407,7 @@ with tab1:
                 with col6:
                    st.metric(label="Sortino Ratio", value=f"{metricas['Sortino Ratio']:.2f}")
                     
-                col7, col8, col9, col10 = st.columns(4)
+                col7, col8, col9 = st.columns(3)
                 with col7:
                     st.metric(label="VaR", value=f"{metricas['VaR']:.2f}")
                 with col8:
