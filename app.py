@@ -295,8 +295,7 @@ with tab1:
                     font-weight: bold;
                     color: white;
                     margin-bottom: 10px;
-                    min-height: 50px; /* Altura mínima para alinear los títulos */
-                }
+                    min-height: 30px; 
                 .columna {
                     display: flex;
                     flex-direction: column;
