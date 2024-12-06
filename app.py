@@ -115,7 +115,7 @@ with st.sidebar:
                 "color": "white",
                 "background-color": "#1D1E2C",
             },
-            "nav-link-selected": {"background-color": "#C4F5FC", "color": "white"},
+            "nav-link-selected": {"background-color": "#FFB703", "color": "white"},
         },
     )
 
