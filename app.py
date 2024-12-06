@@ -196,10 +196,7 @@ def calcular_metricas(rendimientos, benchmark=None, rf_rate=0.02):
         "Momentum": momentum,
     }
 
-metricas = {
-    etf: calcular_metricas(rendimientos[etf], benchmark if etf != 'SPY' else None)
-    for etf in etfs
-}
+metricas = {etf: calcular_metricas(rendimientos[etf]) for etf in etfs}
 metricas_df = pd.DataFrame(metricas).T  # Convertir a DataFrame para análisis tabular
 
 # Función para crear el histograma con hover interactivo
