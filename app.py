@@ -297,9 +297,19 @@ with tab1:
                 justify-content: space-between;
                 height: 100%;
             }
-            /* Ajustar los márgenes entre elementos dentro de las columnas */
-            .stMarkdown {
-                flex-grow: 1;
+            .titulo-columnas {
+                text-align: center;
+                font-size: 20px;
+                font-weight: bold;
+                color: white;
+                margin-bottom: 10px;
+            }
+            /* Ajustes adicionales para espaciado */
+            .tabla-caracteristicas, .metricas-calculadas {
+                display: flex;
+                flex-direction: column;
+                justify-content: space-between;
+                height: 100%;
             }
             </style>
             """,
