@@ -305,9 +305,7 @@ with tab1:
 
                 # Títulos centrados
                 st.markdown('<div class="titulo-columnas">Características del ETF</div>', unsafe_allow_html=True)
-                st.markdown('<div class="titulo-columnas">Métricas Calculadas</div>', unsafe_allow_html=True)
-                st.markdown('<hr style="border-top: 1px solid white;">', unsafe_allow_html=True)
-
+                
                 data = descripciones_etfs[etf_seleccionado]
 
                 # Tabla de características
@@ -328,6 +326,7 @@ with tab1:
                 })
 
                 # Convertir el DataFrame a HTML y renderizarlo
+                # border: 1px solid white;
                 tabla_html = tabla_caracteristicas.to_html(index=False, escape=False)
                 st.markdown(
                     """
@@ -344,10 +343,10 @@ with tab1:
                         font-weight: bold;
                         text-align: center;
                         vertical-align: middle;
-                        border-bottom: 1px solid white;
+                        # border-bottom: 2px solid white;
                     }
                     td {
-                        border: 1px solid white;
+                        
                         padding: 8px;
                         text-align: center;
                     }
@@ -383,7 +382,7 @@ with tab1:
 
             # Columna Derecha
             with col2:
-                st.subheader("Métricas Calculadas")
+                st.markdown('<div class="titulo-columnas">Métricas Calculadas</div>', unsafe_allow_html=True)
 
                 # Métricas en boxes
                 style_metric_cards(background_color="#1F2C56", border_left_color="#F46197")
