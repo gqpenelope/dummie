@@ -471,7 +471,7 @@ with tab2:
     st.markdown(
     """
     <div style="
-        background-color: #1D1E2C;
+        background-color: #FFB703;
         padding: 8px;
         border-radius: 20px;
         color: black;
@@ -485,7 +485,7 @@ with tab2:
         # Mostrar un aviso para el usuario
     st.markdown(
         f"""
-        <div style="text-align: center; padding: 10px; border-radius: 10px; color: black; font-weight: bold;">
+        <div style="text-align: center; padding: 10px; border-radius: 10px; color: #FB8500; font-weight: bold;">
             Este análisis utiliza exclusivamente datos de la ventana: <u>2010-2020</u>.
         </div>
         """,
