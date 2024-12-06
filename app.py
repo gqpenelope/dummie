@@ -283,39 +283,6 @@ with tab1:
     if etf_seleccionado not in datos.columns or datos[etf_seleccionado].dropna().empty:
         st.error(f"No hay datos disponibles para {etf_seleccionado} en la ventana seleccionada.")
     else:
-        st.markdown(
-            """
-            <style>
-            /* Contenedor padre para ambas columnas */
-            .stColumns {
-                display: flex;
-                align-items: stretch; /* Asegura que ambas columnas tengan la misma altura */
-            }
-            .stColumn {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                height: 100%;
-            }
-            .titulo-columnas {
-                text-align: center;
-                font-size: 20px;
-                font-weight: bold;
-                color: white;
-                margin-bottom: 10px;
-            }
-            /* Ajustes adicionales para espaciado */
-            .tabla-caracteristicas, .metricas-calculadas {
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                height: 100%;
-            }
-            </style>
-            """,
-            unsafe_allow_html=True
-        )
-        #para que las columnas esten del mismo tamaño
         with st.container():
             # Dividir en dos columnas
             col1, col2 = st.columns([3, 2])  # Relación 3:2 entre columnas izquierda y derecha
