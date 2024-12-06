@@ -345,8 +345,9 @@ with tab1:
                     td {      
                         padding: 8px;
                         text-align: center;
-                        border-bottom: 1px solid white
-
+                        border-bottom: 1px solid white;
+                        border-left: none;
+                        border-right: none;
                     }
                     </style>
                     """,
